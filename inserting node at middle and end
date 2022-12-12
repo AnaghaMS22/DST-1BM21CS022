@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node * next;
+};
+struct Node* create_node( int new_data){
+    struct Node*new_node=(struct Node*)malloc(sizeof(struct Node));
+        new_node->data=new_data;
+        return new_node;
+
+}
+void append(struct Node** head_ref, int new_data){
+    struct Node * new_node, *last;
+    //new_node=(struct Node *)malloc(sizeof(struct Node));
+//new_node->data=new_data;
+    new_node= create_node(new_data);
+    new_node->next=NULL;
+    if(*head_ref==NULL) {*head_ref=new_node;
+    return;}
+    else{
+        last=*head_ref;
+        while(last->next!=NULL){
+            last=last->next;
+        }
+    last->next=new_node;
+    return;
+}
+}
+void middle(struct Node** head, int data, int position){
+    struct Node* ptr, *temp;
+    //ptr=(struct Node *)malloc(sizeof(struct Node));
+    //ptr->data=data;
+    ptr= create_node(data);
+
+    int i;
+    if(*head==NULL) *head=ptr;
+    else{
+        temp=*head;
+        for(i=1;i<position-1;i++) temp=temp->next;
+        ptr->next=temp->next;
+        temp->next=ptr;
+    }
+
+}
+void printList(struct Node* node){
+    while (node!=NULL){
+        printf("%d", node->data);
+        node=node->next;
+    }
+}
+int main(){
+    struct Node*head=NULL;
+    int x,i, choice;
+    while(1){
+    printf("\nMenu\n1.Add to the end of the list\n2.Add to a specified position in the list\n3.Display the list\n4.Exit program\nEnter your choice: ");
+    scanf("%d", &choice);
+     switch(choice){
+        case 1:  
+            printf("Enter the value: ");
+            scanf("%d", &x);
+            append(&head, x);
+                break;
+        case 2:
+            printf("Enter the value: ");
+            scanf("%d", &x);
+            printf("Enter the position the node has to be inserted into: ");
+            scanf("%d", &i);
+            middle(&head,x,i);
+
+        case 3:
+            printf("\nCreated Linked list is: ");
+            printList(head);
+            break;
+               
+        case 4: exit(0);
+        default: printf("Choice isn't in options");
+                break;
+        }
+    }
+}
+
